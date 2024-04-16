@@ -3,6 +3,11 @@
     --color-2: #1B2028;
     --color-3: #A4AAAD;
     --color-4: #111111;
+    --color-5: #FFFFFF;
+    --space-layout-padding-lr: 0px 15px ;
+    --space-layout-padding-t: 15px;
+    --layout__image__widht:100%;
+    --layout__image__height:350px;
 }
 @font-face {
     font-family: "EncodeSans-Regular";
