@@ -1,0 +1,34 @@
+:root{
+    --color-1: #292526;
+    --color-2: #1B2028;
+    --color-3: #A4AAAD;
+    --color-4: #111111;
+    --color-5: #FFFFFF;
+    --space-layout-padding-lr: 0px 15px ;
+    --space-layout-padding-t: 15px;
+
+    --layout__image__widht:100%;
+    --layout__image__height:350px;
+
+    --layout-image-width-details:100%;
+    --layout-image-height-details:392px;
+
+    --layout-image-width-checkout:70px;
+    --layout-image-height-checkout:70px;
+}
+@font-face {
+    font-family: "EncodeSans-Regular";
+    src: url("../storage/font/encode-sans/EncodeSans-Regular.ttf");
+}
+@font-face {
+    font-family: "EncodeSans-Medium";
+    src: url("../storage/font/encode-sans/EncodeSans-Medium.ttf");
+}
+@font-face {
+    font-family: "EncodeSans-SemiBold";
+    src: url("../storage/font/encode-sans/EncodeSans-SemiBold.ttf");
+}
+@font-face {
+    font-family: "EncodeSans-Bold";
+    src: url("../storage/font/encode-sans/EncodeSans-Bold.ttf");
+}
