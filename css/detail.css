@@ -152,8 +152,10 @@
 .footer__ul li a img{
     width: 25px;
 }
-
 .footer__ul li a span {
-    display: flex;
-    align-items: center;
+    font-family: EncodeSans-Medium;   
+}
+.footer__ul li a del {
+    color: var(--color-3);
+    font-family: EncodeSans-Regular;
 }

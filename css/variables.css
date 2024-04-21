@@ -6,8 +6,12 @@
     --color-5: #FFFFFF;
     --space-layout-padding-lr: 0px 15px ;
     --space-layout-padding-t: 15px;
+
     --layout__image__widht:100%;
     --layout__image__height:350px;
+
+    --layout-image-width-checkout:70px;
+    --layout-image-height-checkout:70px;
 }
 @font-face {
     font-family: "EncodeSans-Regular";
