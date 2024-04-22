@@ -103,7 +103,7 @@
 }
 .product__custom{
     margin-top: 15px;
-    background: red;
+    /* background: red; */
     display: flex;
     justify-content: space-between;
 }
