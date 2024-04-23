@@ -101,7 +101,28 @@
 
 
 
+.section__shopping{
+    /* background: red; */
+    margin-top: 20px;
+}
 
+.shopping__title{
+    /* background: red; */
+    margin-bottom: 15px;
+}
+
+
+.section__card{
+    /* background: red; */
+    margin-bottom: 15px;
+}
+
+
+.dropdown{
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
 .dropdown__button {
     background-color: var(--color-3);
     border-radius: 5px;
@@ -118,11 +139,6 @@
     display: flex;
     align-items: center;
     gap: 10px;
-}
-.dropdown {
-    position: relative;
-    display: inline-block;
-    width: 100%;
 }
 
 .dropdown-content {
@@ -155,9 +171,36 @@
     width: 100%
 }
 
-.dropdown:hover .dropbtn {
+.dropdown:hover .dropdown__button {
     background-color: var(--color-1);
     color: var(--color-5);
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
+}
+
+.dropdown:hover .dropdown__button .shopping__option{
+    filter: invert(1);
+}
+
+.section__bill{
+    /* background: red; */
+    margin-top: 25px;
+}
+.section__bill span{
+    font-family: EncodeSans-SemiBold;
+}
+.bill__total{
+    /* background: blue; */
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+.bill__fee{
+    /* background: blue; */
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
 }
