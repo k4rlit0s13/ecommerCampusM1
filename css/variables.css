@@ -10,6 +10,9 @@
     --layout__image__widht:100%;
     --layout__image__height:350px;
 
+    --layout-image-width-details:100%;
+    --layout-image-height-details:392px;
+
     --layout-image-width-checkout:70px;
     --layout-image-height-checkout:70px;
 }
