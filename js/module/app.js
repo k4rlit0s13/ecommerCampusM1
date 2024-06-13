@@ -1,9 +1,9 @@
 import { headers } from "../components/env.js";
 
-export const getAllProductName = async({search:text} = {search:"Phone"})=>{
+export const getAllProductName = async({search:text, id:idCategory})=>{
     console.log("Esperando .......");
-    const url = `https://real-time-amazon-data.p.rapidapi.com/search?query=${text}=1&country=US&sort_by=RELEVANCE&product_condition=ALL`;
-    const options = {
+    console.log(text, idCategory);
+    const url = `https://real-time-amazon-data.p.rapidapi.com/search?query=${text}&page=1&country=US&sort_by=RELEVANCE&category_id=${idCategory}&product_condition=ALL`;    const options = {
         method: 'GET',
         headers
     };
