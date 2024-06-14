@@ -23,15 +23,25 @@
 }
 .product__image {
     /* background: blue; */
+    display: flex;
+    flex-direction: row;
+    overflow-x: scroll;
+    overflow-y: hidden;
     width: var(--layout-image-width-details);
     height: var(--layout-image-height-details);
-    overflow: hidden;
+
 }
-.product__image img{
-    border-radius: 15px;
-    width: var(--layout-image-width-details);
-    height: var(--layout-image-height-details);
-    object-fit: cover;
+.product__image__item{
+    flex: 1;
+    min-width: 98%;
+    margin: 0 10px;
+    /* background-color: purple; */
+    height: var(--layout-imagen-height-detail);
+}
+.product__image__item img{
+    width: var(--layout-imagen-width-detail);
+    height: var(--layout-imagen-height-detail);
+    object-fit: contain;
 }
 .product__menu {
     /* background-color: violet; */

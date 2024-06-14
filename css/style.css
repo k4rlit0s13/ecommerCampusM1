@@ -139,7 +139,7 @@
     width: 24px;
     height: 24px;   
 }
-.main_article{
+.main__article{
     height: 70vh;
     margin-top: 15px;
     /* background: red; */
@@ -148,7 +148,7 @@
     justify-content: space-between;
     overflow-y: scroll;
 }
-.main_article section{
+.main__article section{
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -186,16 +186,16 @@
     height: 25px;
     width: 25px;
 }
-.main_article section h5{
+.main__article section h5{
     font-family: EncodeSans-SemiBold;
     color: var(--color-2);
     margin-bottom: 9px;
 }
-.main_article section small{
+.main__article section small{
     color: var(--color-3);
 }
-.main_article section h5,
-.main_article section small{
+.main__article section h5,
+.main__article section small{
     align-self: flex-start;
 }
 .section__price{
@@ -216,12 +216,12 @@
     font-family: EncodeSans-Regular;
     color: var(--color-2);
 }
-.main_article section:nth-child(4n+1),
-.main_article section:nth-child(4n+4){
+.main__article section:nth-child(4n+1),
+.main__article section:nth-child(4n+4){
     /* background: orange; */
     height: 380px;
 }
-.main_article section:nth-child(4n-1){
+.main__article section:nth-child(4n-1){
     /* background: violet; */
     margin-top: -54px;
 }

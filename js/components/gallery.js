@@ -5,13 +5,13 @@ export const galleryIndex = (res, category)=>{
         plantilla += /*html*/`
         <section>
            <div class="section__front__page">
-                <a href="views/detail.html?id=${value.asin}">
+               <a href="views/detail.html?id=${value.asin}">
                    <img src="${value.product_photo}">
                </a>
                <img src="storage/img/heart.svg">
            </div>
            <h5>${value.product_title}</h5>
-           <small>Dress modern</small>
+           <small>${category}</small>
            <div class="section__price">
                <span>${value.product_price}</span>
                <div  class="price__score">
@@ -23,4 +23,20 @@ export const galleryIndex = (res, category)=>{
        `;
     });
     return plantilla
+}
+
+
+export const galleryCategory = ({data: {product_photos}} = res)=>{
+    return /*html*/`
+        <article class="article__product">
+            <div class="product__image">
+                ${product_photos.map(value => `<div class="product__image__item"><img src="${value}"></div>`).join('')}
+            </div>
+            <div class="product__menu">
+                <a href="../">
+                    <img src="../storage/img/back.svg">
+                </a>
+                <img src="../storage/img/heartBlack.svg">
+            </div>
+        </article>`;
 }
