@@ -1,7 +1,7 @@
-export const galleryIndex = (res, category)=>{
-    let {products} = res.data
+export const galleryIndex = (res, category) => {
+    let { products } = res.data
     let plantilla = "";
-    products.forEach((value,index) => {
+    products.forEach((value, index) => {
         plantilla += /*html*/`
         <section>
            <div class="section__front__page">
@@ -16,7 +16,7 @@ export const galleryIndex = (res, category)=>{
                <span>${value.product_price}</span>
                <div  class="price__score">
                    <img src="storage/img/star.svg">
-                   <p>${(value.product_star_rating!=null) ? value.product_star_rating : 0}</p>
+                   <p>${(value.product_star_rating != null) ? value.product_star_rating : 0}</p>
                </div>
            </div>
        </section>
@@ -26,14 +26,14 @@ export const galleryIndex = (res, category)=>{
 }
 
 
-export const galleryCategory = ({data: {product_photos}} = res)=>{
+export const galleryCategory = ({ data: { product_photos } } = res) => {
     return /*html*/`
         <article class="article__product">
             <div class="product__image">
                 ${product_photos.map(value => `<div class="product__image__item"><img src="${value}"></div>`).join('')}
             </div>
             <div class="product__menu">
-                <a href="../">
+                <a href="../?id='fashion'">
                     <img src="../storage/img/back.svg">
                 </a>
                 <img src="../storage/img/heartBlack.svg">
