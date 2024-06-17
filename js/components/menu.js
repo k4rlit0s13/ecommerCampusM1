@@ -5,7 +5,7 @@ export const menuListCategoryIndex = (res)=>{
         plantilla += /*html*/`
         <li title="${value.name}">
             <a href="?id=${value.id}" >
-                <img src="../storage/img/category.svg" >
+                <img src="storage/img/category.svg" >
                 <span>${value.name}</span>
             </a>
         </li>
