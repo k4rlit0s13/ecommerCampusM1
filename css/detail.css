@@ -98,13 +98,30 @@
     text-decoration: none;
 }
 .product__information{
-    width: 75%;
     margin-top: 10px;
     color: var(--color-3);
 }
-.product__information strong{
-    color: var(--color-2);
+
+summary  {
+    list-style: none;
 }
+/* sigh, Safari again */
+summary::-webkit-details-marker {
+    display: none;
+}
+summary {
+    border-radius: 5px;
+}
+
+details[open] summary {
+    border-radius: 5px 5px 0 0;
+    /* padding: 0 10px 0 10px; */
+}
+
+details {
+    border-radius: 5px;
+}
+
 .product__information + hr{
     margin-top: 16px;
     background: var(--color-6);
@@ -113,6 +130,7 @@
 }
 .product__custom{
     margin-top: 15px;
+    margin-bottom: 75px;
     /* background: red; */
     display: flex;
     justify-content: space-between;

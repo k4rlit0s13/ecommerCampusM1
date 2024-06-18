@@ -1,15 +1,8 @@
-//introduccion a DOM
-//interpolarizacion
-let header__information=document.querySelector(".header__information")
-let[p,span]=header__information.children;
-    // usar innerhtml para modificar datos con h1 o html en general, si no, innertext no mas
-span.innerHTML="Carlos David";
-console.log(getAllCategory());
-
 import { menuListCategoryIndex } from "./components/menu.js";
 import { galleryIndex } from "./components/gallery.js";
 import { getAllProductName, getAllCategory, getAllProductRandom } from "./module/app.js";
 import { getProductId } from "./module/detail.js";
+
 
 let input__search = document.querySelector("#input__search");
 let main__article = document.querySelector(".main__article");
@@ -33,7 +26,7 @@ let searchProducts = async e => {
     }
     console.log(res);
     main__article.innerHTML = galleryIndex(res, params.get('id'));
-
+    
     let {data: {products}} = res;
     let asin = products.map(value => {return {id: value.asin}});
 
@@ -53,18 +46,13 @@ let searchProducts = async e => {
 addEventListener("DOMContentLoaded", async e=>{
     if(!localStorage.getItem("getAllCategory")) localStorage.setItem("getAllCategory", JSON.stringify(await getAllCategory()));
     nav__ul.innerHTML = await menuListCategoryIndex(JSON.parse(localStorage.getItem("getAllCategory")));  
-
-    history.pushState(null, "", "?id=games");
-    input__search.value = "controles"
+    
+    history.pushState(null, "", "?id=fashion");
+    input__search.value = "zapato"
     const eventoChange = new Event('change');
     input__search.dispatchEvent(eventoChange);
-
+    
+   
 })
 
-
-
-
 input__search.addEventListener("change", searchProducts);
-
-
-
