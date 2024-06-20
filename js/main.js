@@ -1,3 +1,8 @@
+let header__information=document.querySelector(".header__information")
+let[p,span]=header__information.children;
+    // usar innerhtml para modificar datos con h1 o html en general, si no, innertext no mas
+span.innerHTML="Carlos David";
+
 import { menuListCategoryIndex } from "./components/menu.js";
 import { galleryIndex } from "./components/gallery.js";
 import { getAllProductName, getAllCategory, getAllProductRandom } from "./module/app.js";

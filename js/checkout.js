@@ -2,24 +2,26 @@ import { productSelectedCheckout } from "./components/section.js";
 
 let checkout__details=document.querySelector('.checkout__details')
 
-addEventListener("DOMContentLoaded", async(e)=>{
-
-    //toma del primer dato del sessionStorage(dato guardado)
+// checkout.js
+addEventListener("DOMContentLoaded", async (e) => {
     const getAllValidEntries = (storage) => {
         const validEntries = [];
         for (let i = 0; i < storage.length; i++) {
             let key = storage.key(i), value = storage.getItem(key);
-            if (!/^(true|false|\d+)$/.test(value)) {
+            if (value && !/^(true|false|\d+)$/.test(value)) {
                 validEntries.push({ key, value });
             }
         }
         return validEntries;
     }
     const allValidEntries = getAllValidEntries(sessionStorage);
-    
     console.log(allValidEntries);
 
-    productSelectedCheckout(allValidEntries);
-    
-
-})
+    // Insertar dinámicamente el contenido en checkout__details
+    allValidEntries.forEach(entry => {
+        const plantilla = productSelectedCheckout(entry);
+        if (plantilla) {
+            checkout__details.innerHTML += plantilla;
+        }
+    });
+});
