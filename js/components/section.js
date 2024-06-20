@@ -42,3 +42,34 @@ export const productDetail = async(res)=>{
         <p>${string2}</p>
     </details>`;
 }
+
+export const productSelectedCheckout=(res)=>{
+    let prueba=res.value;
+    console.log(prueba);
+
+    const data=JSON.parse(prueba)
+    console.log(data);
+    
+
+    let plantilla = "";
+        plantilla += /*html*/`
+        <article class="detail__product">
+            <div class="product__image">
+                <img src="../storage/img/foto2.png" alt="">
+            </div>
+            <div class="product__description">
+            <h3>${value.product_title}</h3>
+            <small>Dress modern</small>
+            <span>$212.99</span>
+        </div>
+        <div class="product__custom">
+            <img src="../storage/img/option.svg" alt="">
+            <div class="product__select">
+                <img src="../storage/img/minusCheckout.svg" alt="">
+                <span>4</span>
+                <img src="../storage/img/plusCheckout.svg" alt="">
+            </div>
+        </div>
+        </article>`
+    return plantilla
+}

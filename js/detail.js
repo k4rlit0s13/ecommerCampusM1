@@ -8,12 +8,15 @@ let main__section__title = document.querySelector("#main__section__title");
 let product__information = document.querySelector(".product__information");
 let footer__ul = document.querySelector(".footer__ul");
 
+let information={};
+
 addEventListener("DOMContentLoaded", async(e)=>{
     let params = new URLSearchParams(location.search);
     let id = params.get('id');
     if(!localStorage.getItem(id)) localStorage.setItem(id, JSON.stringify(await getProductId({id})));
 
     let info = JSON.parse(localStorage.getItem(id));
+    information.data=info
     main__section_gallery.innerHTML = await galleryCategory(info);
     main__section__title.innerHTML = await titleProductDetail(info);
     let btn_minus = document.querySelector("#btn_minus");
@@ -51,3 +54,9 @@ addEventListener("DOMContentLoaded", async(e)=>{
     //     timer: 2000
     // });
 }
+
+footer__ul.addEventListener("click",async(e)=>{
+    let params = new URLSearchParams(location.search);
+    let id = params.get('id');
+    if(!sessionStorage.getItem(id)) sessionStorage.setItem(id, JSON.stringify(information.data));
+})
