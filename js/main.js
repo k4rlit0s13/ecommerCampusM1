@@ -1,70 +1,123 @@
-let header__information=document.querySelector(".header__information")
-let[p,span]=header__information.children;
-    // usar innerhtml para modificar datos con h1 o html en general, si no, innertext no mas
-span.innerHTML="Carlos David";
+// Elements to interact with
+let header__information = document.querySelector(".header__information");
+let [p, span] = header__information.children;
+span.innerHTML = "Carlos David";
 
-import { menuListCategoryIndex } from "./components/menu.js";
-import { galleryIndex } from "./components/gallery.js";
-import { getAllProductName, getAllCategory, getAllProductRandom } from "./module/app.js";
-import { getProductId } from "./module/detail.js";
-
-//variables del html guardadas 
 let input__search = document.querySelector("#input__search");
 let main__article = document.querySelector(".main__article");
 let nav__ul = document.querySelector(".nav__ul");
+let loader = document.getElementById('loader');
 
-//eventos, click, acciones etc, interaciones con prefirer, cargas etc
-//evento aautoejecutable, se activa  apenas se carge el html
-//ctrl+espacio, muestra los tipos de eventos
-//localstorage es una palabra reservada
-addEventListener("DOMContentLoaded", async e=>{ 
-    //condicion de validacion de los datos existen
-    if(!localStorage.getItem("getAllCategory")) localStorage.setItem("getAllCategory", JSON.stringify(await getAllCategory()));
-    //meter cambios dentro del html de nav__ul con la plantilla dinamica de la lista de categorias con su parametro que sea el get allcategory y el parse convierte de string a valor quita comillas de los datos
-    nav__ul.innerHTML = await menuListCategoryIndex(JSON.parse(localStorage.getItem("getAllCategory")));  
-//gonorrea de 
-    history.pushState(null, "", "?id=fashion");
-    input__search.value = "zapato"
-    const eventoChange = new Event('change');
-    input__search.dispatchEvent(eventoChange);
-})
 
-let searchProducts = async e => {
+// Import external spells from other wizards
+import { menuListCategoryIndex } from "./components/menu.js";
+import { galleryIndex } from "./components/gallery.js";
+import { getAllProductName, getAllCategory, getAllProductRandom } from "./module/app.js";
 
-    let params = new URLSearchParams(location.search);
-    let dataSearch = { search : e.target.value, id: params.get('id')}
-    console.log(dataSearch);
-    input__search.value = null;
-    let res = ""
-    if(input__search.dataset.opc == "random"){
-        res = await getAllProductRandom({})
-        delete input__search.dataset.opc
-        history.pushState(null, "", "?id=aps");
-        console.log(dataSearch);
-    }
-    else {
-        res = await getAllProductName(dataSearch)
-        console.log(dataSearch);
-    } 
-    console.log(res);
-
-    //IMPRIMIR LOS PRODUCTOS DE LA API
-    main__article.innerHTML = galleryIndex(res, params.get('id'));
-    
-    let {data: {products}} = res;
-    let asin = products.map(value => {return {id: value.asin}});
-
-    let proceso = new Promise(async(resolve, reject)=>{
-        for (let i = 0; i < asin.length; i++) {
-            if(localStorage.getItem(asin[i].id)) continue;
-            let data = await getProductId(asin[i])
-            localStorage.setItem(asin[i].id, JSON.stringify(data))
+// Función para cargar las categorías y actualizar el menú de navegación
+const loadCategories = async () => {
+    let categorias = JSON.parse(localStorage.getItem("getAllCategory"));
+        if (!categorias) {
+            const result = await getAllCategory();
+            categorias = result.data;
+            localStorage.setItem("getAllCategory", JSON.stringify(categorias));
+            console.log("Datos obtenidos de la API y guardados en localStorage.");
+        } else {
+            console.log("Usando categorías almacenadas en localStorage.");
         }
-        resolve({message: "Datos buscados correctamente" });
-    })
-    Promise.all([proceso]).then(res => {console.log(res);})
+            nav__ul.innerHTML = menuListCategoryIndex({ data: categorias });
 
-}
+            // Agregar evento de clic a cada categoría del menú
+            nav__ul.querySelectorAll("li").forEach((li) => {
+                li.addEventListener("click", async (e) => {
+                    const categoryId = e.target.dataset.categoryId; // Obtener el ID de la categoría
+                    await searchProductsByCategory(categoryId); // Llamar a la búsqueda por categoría
+                });
+            });
+};
+
+// Función para cargar y mostrar productos automáticamente al cargar la página
+const loadAndShowGalleryIndex = async () => {
+    try {
+        const category = "videogames"; // Categoría específica
+        const cacheKey = "getAllProductRandom_videogames";
+        let cachedProducts = localStorage.getItem(cacheKey);
+
+        // Función para obtener productos y actualizar caché
+        const fetchProductsAndUpdateCache = async () => {
+            const res = await getAllProductRandom({ category_id: "videogames" });
+            const jsonRes = JSON.stringify(res);
+            localStorage.setItem(cacheKey, jsonRes);
+            console.log("Productos cargados y almacenados correctamente en caché.");
+            return res.data; // Devolver solo los datos de productos
+        };
+
+        // Verificar si los productos están en caché y cargar o actualizar
+        if (!cachedProducts) {
+            const products = await fetchProductsAndUpdateCache();
+            main__article.innerHTML = galleryIndex(products, category);
+        } else {
+            const products = JSON.parse(cachedProducts);
+            main__article.innerHTML = galleryIndex(products, category);
+            // Actualizar caché en segundo plano
+            fetchProductsAndUpdateCache();
+        }
+    } catch (error) {
+        console.error("Error al cargar los productos:", error);
+    }
+};
 
 
-input__search.addEventListener("change", searchProducts);
+// Event listener for search input
+const setupSearchListener = () => {
+    let timeoutId;
+
+    input__search.addEventListener('input', async (e) => {
+        const searchText = e.target.value.trim();
+
+        if (e.inputType === 'insertText' && e.data === '\n') {
+            e.preventDefault();
+            showLoader(); // Mostrar el indicador de carga al iniciar la búsqueda
+            searchProducts(searchText);
+            return;
+        }
+
+        clearTimeout(timeoutId);
+
+        timeoutId = setTimeout(async () => {
+            showLoader(); // Mostrar el indicador de carga al iniciar la búsqueda
+            searchProducts(searchText);
+        }, 500);
+    });
+};
+
+const showLoader = () => {
+    loader.style.display = 'block'; // Mostrar el indicador de carga
+};
+
+const hideLoader = () => {
+    loader.style.display = 'none'; // Ocultar el indicador de carga
+};
+
+// Función para realizar la búsqueda de productos
+const searchProducts = async (searchText) => {
+        if (searchText.length === 0) {
+            main__article.innerHTML = '';
+            hideLoader(); // Ocultar el indicador si no hay texto de búsqueda
+            return;
+        }
+    
+        const products = await getAllProductName({ search: searchText });
+        main__article.innerHTML = galleryIndex(products, "Search Results");
+    
+        input__search.value = '';
+        hideLoader(); // Ocultar el indicador después de cargar los resultados
+    };
+    
+
+// Initialize spells on DOMContentLoaded
+document.addEventListener('DOMContentLoaded', async () => {
+    await loadCategories(); // Cargar categorías
+    await loadAndShowGalleryIndex(); // Cargar y mostrar productos
+    setupSearchListener(); // Configurar el listener de búsqueda
+});

@@ -1,5 +1,6 @@
+// Hechizo para mostrar la plantilla de productos
 export const galleryIndex = (res, category) => {
-    let { products } = res.data
+    let { products } = res.data;
     let plantilla = "";
     products.forEach((value) => {
         plantilla += /*html*/`
@@ -14,7 +15,7 @@ export const galleryIndex = (res, category) => {
            <small>${category}</small>
            <div class="section__price">
                <span>${value.product_price}</span>
-               <div  class="price__score">
+               <div class="price__score">
                    <img src="storage/img/star.svg">
                    <p>${(value.product_star_rating != null) ? value.product_star_rating : 0}</p>
                </div>
@@ -22,7 +23,7 @@ export const galleryIndex = (res, category) => {
        </section>
        `;
     });
-    return plantilla
+    return plantilla;
 }
 
 
