@@ -1,21 +1,26 @@
-export const titleProductDetail = async({ data:dataUpdate } = res)=>{
+export const titleProductDetail = async ({ data: dataUpdate } = res) => {
+    // Verificar que dataUpdate.product_star_rating es un número válido
+    const starRating = parseInt(dataUpdate.product_star_rating, 10);
+    const validStarRating = isNaN(starRating) || starRating < 0 ? 0 : starRating;
+
     return /*html*/`
         <article class="article__detail">
             <div class="detail__head">
                 <h1>${dataUpdate.product_title}</h1>
                 <div class="product__select">
-                <img id="btn_minus" src="../storage/img/minus.svg">
-                <span id="span_quantity">1</span>
-                <img id="btn_plus" src="../storage/img/plus.svg" alt="">
+                    <img id="btn_minus" src="../storage/img/minus.svg">
+                    <span id="span_quantity">1</span>
+                    <img id="btn_plus" src="../storage/img/plus.svg" alt="">
                 </div>
             </div>
             <div class="detail__score">
-                ${new Array(parseInt(dataUpdate.product_star_rating)).fill(`<img src="../storage/img/star.svg">`).join('')}
+                ${new Array(validStarRating).fill(`<img src="../storage/img/star.svg">`).join('')}
                 <span>${dataUpdate.product_star_rating}</span>
                 <a href="${dataUpdate.product_url}">(${dataUpdate.product_num_ratings} reviews)</a>
             </div>
         </article>`;
-}
+};
+
 
 
 export const productDetail = async(res)=>{
